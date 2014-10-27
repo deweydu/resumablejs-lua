@@ -5,6 +5,7 @@ This is the implementation of the server side part of Resumable.js client script
 #### Install Dependencies
 
 * OpenResty http://openresty.org
+* luafilesystem https://github.com/keplerproject/luafilesystem
 * Resumable.js http://www.resumablejs.com/
 
 
