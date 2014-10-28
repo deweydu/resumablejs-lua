@@ -112,6 +112,7 @@ elseif request_method == "POST" then
     f, e = io.open(body_file,"rb")
     if e == nil then
         body_data = f:read("*all")
+        f:close()
         local body_data_table = explode(tostring(body_data),boundary)
         table.remove(body_data_table,1)
         table.remove(body_data_table)
@@ -150,13 +151,14 @@ elseif request_method == "POST" then
             os.mkdir(chunk_dir)
         end
         if fileData ~= nil then
-            file, err = io.open(chunk_file, "w+")
-            file:write(fileData)
-            file:close()
+            local file, err = io.open(chunk_file, "w+")
             if err == nil then
+                file:write(fileData)
                 createFileFromChunks(chunk_dir,upload_dir,resumableFilename,resumableChunkSize,resumableTotalSize)
-            end
-        end
+                file:close()
+            else
+                ngx.say(err)
+            end     
+        end   
     end
-
 end
