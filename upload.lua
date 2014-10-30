@@ -72,6 +72,7 @@ local function createFileFromChunks (chunk_dir,upload_dir,resumableFilename,resu
             end
             file:close()
             os.remove(chunk_dir)
+            lfs.chmod(file_dir .. file_name, 640)
             ngx.say('{"file":"'.. date .. "/" ..file_name..'"}')
         else
             ngx.log(ngx.DEBUG,"fail to open destination file.")
