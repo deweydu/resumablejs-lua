@@ -128,7 +128,7 @@ elseif request_method == "POST" then
             if not start_pos then
                 local t = explode(v,"\r\n\r\n")
                 local param_name = string.sub(t[1],41,-2)
-                local param_value = string.sub(t[2],1,-3)
+                local param_value = table.concat(t,"\r\n\r\n",2):sub(1,-3)
                 if param_name == "resumableIdentifier" then
                     resumableIdentifier = param_value
                 elseif param_name == "resumableFilename" then
@@ -142,7 +142,7 @@ elseif request_method == "POST" then
                 end
             else
                 local t = explode(v,"\r\n\r\n")
-                local param_value = string.sub(t[2],1,-3)
+                local param_value = table.concat(t,"\r\n\r\n",2):sub(1,-3)
                 fileData = param_value
             end
         end
@@ -163,3 +163,4 @@ elseif request_method == "POST" then
         end   
     end
 end
+
